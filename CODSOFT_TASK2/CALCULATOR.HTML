@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Calculator</title>
+    <!-- For styling -->
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #b8e8e4;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            color: #ededed;
+            background: #081b29;
+        }
+
+        h1 {
+            color: #fff;
+            margin-bottom: 20px;
+            animation: slideTop 1s ease forwards;
+        }
+
+        .calculator {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+            border: 1px solid black;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            opacity: 0;
+            animation: slideBottom 1s ease forwards;
+        }
+
+        input[type="button"], input[type="text"] {
+            width: 100%;
+            height: 60px;
+            font-size: 24px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            text-align: center;
+            opacity: 0;
+            animation: slideRight 1s ease forwards;
+            animation-delay: 0.2s;
+        }
+
+        input[type="button"] {
+            background-color: green;
+            color: white;
+        }
+
+        input[type="button"]:hover {
+            background-color: #0ef;
+            box-shadow: 0 0 10px #0ef;
+        }
+
+        input[type="text"] {
+            grid-column: span 4;
+            padding: 4px;
+            border: 2px solid black;
+            text-align: right;
+            animation: slideLeft 1s ease forwards;
+            animation-delay: 0.4s;
+        }
+
+        .small-button {
+            background-color: red;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .small-button:hover {
+            background-color: #f00;
+            box-shadow: 0 0 10px #f00;
+        }
+
+        .small-button-clear {
+            background-color: orange;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .small-button-clear:hover {
+            background-color: #ffa500;
+            box-shadow: 0 0 10px #ffa500;
+        }
+
+        @keyframes slideRight {
+            0% {
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateX(0px);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideLeft {
+            0% {
+                transform: translateX(100px);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateX(0px);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideTop {
+            0% {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(0px);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideBottom {
+            0% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(0px);
+                opacity: 1;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Calculator</h1>
+    <div class="calculator">
+        <input type="text" id="result" readonly>
+        <input type="button" value="C" class="small-button-clear" onclick="clearResult()">
+        <input type="button" value="⌫" class="small-button-clear" onclick="clearLastDigit()">
+        <input type="button" value="%" class="small-button" onclick="appendValue('%')">
+        <input type="button" value="/" class="small-button" onclick="appendValue('/')">
+        <input type="button" value="1" onclick="appendValue(1)">
+        <input type="button" value="2" onclick="appendValue(2)">
+        <input type="button" value="3" onclick="appendValue(3)">
+        <input type="button" value="*" class="small-button" onclick="appendValue('*')">
+        <input type="button" value="4" onclick="appendValue(4)">
+        <input type="button" value="5" onclick="appendValue(5)">
+        <input type="button" value="6" onclick="appendValue(6)">
+        <input type="button" value="-" class="small-button" onclick="appendValue('-')">
+        <input type="button" value="7" onclick="appendValue(7)">
+        <input type="button" value="8" onclick="appendValue(8)">
+        <input type="button" value="9" onclick="appendValue(9)">
+        <input type="button" value="+" class="small-button" onclick="appendValue('+')">
+        <input type="button" value="0" onclick="appendValue(0)">
+        <input type="button" value="00" onclick="appendValue('00')">
+        <input type="button" value="." onclick="appendValue('.')">
+        <input type="button" value="=" onclick="calculateResult()">
+    </div>
+
+    <script>
+        function appendValue(value) {
+            document.getElementById('result').value += value;
+        }
+
+        function clearResult() {
+            document.getElementById('result').value = '';
+        }
+
+        function clearLastDigit() {
+            let result = document.getElementById('result').value;
+            document.getElementById('result').value = result.slice(0, -1);
+        }
+
+        function calculateResult() {
+            try {
+                let result = eval(document.getElementById('result').value);
+                document.getElementById('result').value = result;
+            } catch (e) {
+                document.getElementById('result').value = 'Error';
+            }
+        }
+    </script>
+</body>
+
+</html>
